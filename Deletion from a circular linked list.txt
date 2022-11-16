@@ -1,0 +1,47 @@
+Node* helper(Node* root, int key, Node* head) 
+{
+    // Check if root is equal to head
+    if (root == head) 
+    {
+        return root;
+    }
+
+    // Check if the value of root node is equal to key
+    if (root -> data == key) 
+    {
+        Node * next = root -> next;
+    
+        delete root;
+        return next;
+    }
+
+    root -> next = helper(root -> next, key, head);
+
+    // Return the root node
+    return root;
+}
+
+Node* deleteNode(Node* head, int key) 
+{
+    // Check if head is equal to null
+    if (head == NULL) 
+    {
+        return NULL;
+    }
+
+    // Check if the value of head node is equal to key
+    if (head -> data == key) 
+    {
+        if (head == head -> next)
+        {
+            return NULL;
+        }
+
+        head = head -> next;
+    }
+
+    // Make recursive call
+    head -> next = helper(head -> next, key, head);
+
+    return head;
+}
